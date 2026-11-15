@@ -11,17 +11,20 @@
 [hidden]{display:none!important}
 .shell{display:grid;align-content:center;padding:0;max-width:540px;background:#080807}.shell:before{display:none}
 #start{display:grid;justify-items:center;gap:10px;padding:0 0 14px;background:none;color:var(--gold);border:0;cursor:pointer;font:inherit}
-#start img,#intro{display:block;width:100%;max-height:calc(100svh - 68px);object-fit:contain}#start small{color:var(--muted);font-size:10px}
+#start img{display:block;width:100%;max-height:calc(100svh - 68px);object-fit:contain}#start small{color:var(--muted);font-size:10px}
 .chart{position:relative;aspect-ratio:720/1280;width:min(100%,calc((100svh - 54px)*.5625));margin:auto;background:url(frame.png) center/100% 100%}
 .chart .ring{left:50%;top:55.7%;width:73%;overflow:hidden}
 #orbit{position:absolute;inset:0;background:url(frame.png) 50% 59.69%/136.986% auto;mask-image:radial-gradient(circle,#000 66%,transparent 71%);transform-origin:center}
 .chart .die{left:50%;top:55.7%;width:13%;min-width:44px}
 .chart .die:enabled:after{content:none}.chart .die:enabled{box-shadow:0 0 22px #f0c97a66}
 #stateMessage{text-align:center;margin:0;padding:10px;color:var(--gold)}
+.chart.is-intro #orbit{animation:align-stars 1.65s cubic-bezier(.18,.7,.24,1)}
+@keyframes align-stars{from{transform:rotate(-65deg)}to{transform:rotate(0)}}
+.chart-title{position:absolute;z-index:1;left:37.5%;top:19.35%;width:24.5%;height:4.55%;display:grid;place-items:center;pointer-events:none;color:#eee0bb;font-family:Georgia,serif;font-size:clamp(14px,4.8cqw,30px);font-weight:400;letter-spacing:.15em;background:url(frame.png) 49.67% 25.2%/408.163% auto;text-shadow:0 0 7px #d8bc74aa}
+.chart{container-type:inline-size}
 </style></head><body><main class="shell">
 <button type="button" id="start"><img src="cover.png" alt="ENOLA 星辰神谕收藏摆件"><span>点击进入</span><small>产品概念示意图</small></button>
-<video id="intro" src="reference.mp4" muted playsinline preload="metadata" hidden></video>
-<section id="stage" hidden><div class="chart">
+<section id="stage" hidden><div class="chart"><span class="chart-title">ENOLA</span>
 <div id="ring" class="ring" role="slider" tabindex="0" aria-label="拨动星环" aria-valuemin="0" aria-valuemax="359"><div id="orbit"></div></div>
 <button id="die" class="die" aria-label="触碰中央八芒星，揭示神谕" disabled></button>
 </div><span id="stateLabel" hidden></span><span id="stateIcon" hidden></span><p id="stateMessage" aria-live="polite"></p></section>
@@ -79,11 +82,21 @@ function cardBack(){var s='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 
 $('backImage').src=cardBack();
 function reveal(){if(mode!=='ready')return;choose();state('reveal');var c=cards[selected];$('counter').textContent=('0'+(selected+1)).slice(-2)+' / 06';$('cardImage').src=svgCard(c,selected);$('cardImage').alt=c.name+'：ENOLA原创神谕卡';$('roman').textContent=c.roman+' · '+c.en;$('resultTitle').textContent=c.name;$('verse').textContent=c.verse;$('interpretation').textContent=c.text;card.classList.remove('flip');reading.classList.remove('show');overlay.hidden=false;overlay.setAttribute('aria-hidden','false');requestAnimationFrame(function(){overlay.classList.add('show')});later(function(){card.classList.add('flip')},reduce?80:420);later(function(){reading.classList.add('show');again.focus({preventScroll:true})},reduce?280:1400);document.body.style.overflow='hidden'}
 function reset(){clearTimers();overlay.classList.remove('show');document.body.style.overflow='';setTimeout(function(){overlay.hidden=true;overlay.setAttribute('aria-hidden','true');card.classList.remove('flip');reading.classList.remove('show')},300);selected=-1;angle=0;velocity=0;draw();state('idle');ring.focus({preventScroll:true})}
-const video=$('intro'), start=$('start'), stage=$('stage');
-function enter(){video.pause();video.hidden=true;stage.hidden=false;ring.focus({preventScroll:true})}
-start.onclick=()=>{start.hidden=true;if(reduce){enter();return}video.hidden=false;video.play().catch(enter)};
-video.ontimeupdate=()=>{if(video.currentTime>=2.5)enter()};
-video.onended=video.onerror=enter;
+const start=$('start'), stage=$('stage'), chart=ring.parentElement;
+start.onclick=()=>{
+  start.hidden=true;
+  stage.hidden=false;
+  if(reduce){ring.focus({preventScroll:true});return}
+  stage.inert=true;
+  chart.classList.add('is-intro');
+  $('stateMessage').textContent='星轨正在对齐';
+  orbit.addEventListener('animationend',()=>{
+    chart.classList.remove('is-intro');
+    stage.inert=false;
+    state('idle');
+    ring.focus({preventScroll:true});
+  },{once:true});
+};
 die.addEventListener('click',reveal);again.addEventListener('click',reset);draw();state('idle');
 })();
 </script>
