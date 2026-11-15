@@ -27,13 +27,17 @@
 .chart .ring:focus-visible,.chart .die:focus-visible{outline:1px solid #eed49b59;outline-offset:2px;box-shadow:0 0 9px #eec88130}
 .chart .ring:focus:not(:focus-visible),.chart .die:focus:not(:focus-visible){outline:none}
 .chart[data-turning] .ring{box-shadow:0 0 10px #dfba6540,inset 0 0 7px #dfba6526}
-.chart[data-turning] .ring::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 15% 27%,#fff2c4 0 1px,#f2cb6466 2px,transparent 6px),radial-gradient(circle at 82% 23%,#fff2cb 0 1px,#edc26866 2px,transparent 6px),radial-gradient(circle at 91% 58%,#fff1bf 0 1px,transparent 4px),radial-gradient(circle at 35% 91%,#fff6d1 0 1px,#f1cd6766 2px,transparent 6px);animation:star-flicker 1.05s ease-in-out infinite alternate}
-@keyframes star-flicker{0%,60%{opacity:.16;transform:rotate(0)}32%,100%{opacity:.82;transform:rotate(12deg)}}
-@media(prefers-reduced-motion:reduce){.chart[data-turning] .ring::after{animation:none;opacity:.45}}
+.chart .sparkles{display:none;position:absolute;inset:0;pointer-events:none}
+.chart[data-turning] .sparkles{display:block}
+.sparkles i{position:absolute;left:var(--x);top:var(--y);width:var(--s);aspect-ratio:1;background:radial-gradient(circle,#fffadc 2%,#ffe497a0 15%,transparent 60%);animation:star-flicker var(--t) ease-in-out var(--d) infinite;transform:translate(-50%,-50%);filter:drop-shadow(0 0 4px #ffca65)}
+.sparkles i::before,.sparkles i::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,#fff3bb 50%,transparent);clip-path:polygon(0 50%,44% 45%,50% 0,56% 45%,100% 50%,56% 55%,50% 100%,44% 55%)}
+.sparkles i::after{transform:rotate(45deg) scale(.55);opacity:.65}
+@keyframes star-flicker{0%,100%{opacity:.08;transform:translate(-50%,-50%) scale(.32)}46%{opacity:1;transform:translate(-50%,-50%) scale(1.22)}}
+@media(prefers-reduced-motion:reduce){.sparkles i{animation:none;opacity:.6}}
 </style></head><body><audio id="backgroundMusic" src="music.m4a" autoplay loop preload="auto"></audio><main class="shell">
 <button type="button" id="start"><img src="cover.png" alt="ENOLA 星辰神谕收藏摆件"><span>点击进入</span><small>产品概念示意图</small></button>
 <section id="stage" hidden><div class="chart"><span class="chart-title">ENOLA</span>
-<div id="ring" class="ring" role="slider" tabindex="0" aria-label="拨动星环" aria-valuemin="0" aria-valuemax="359"><div id="orbit"></div></div>
+<div id="ring" class="ring" role="slider" tabindex="0" aria-label="拨动星环" aria-valuemin="0" aria-valuemax="359"><div id="orbit"></div><span class="sparkles" aria-hidden="true"><i style="--x:50%;--y:5%;--s:24px;--t:900ms;--d:-0ms"></i><i style="--x:76%;--y:14%;--s:33px;--t:1037ms;--d:-193ms"></i><i style="--x:90%;--y:34%;--s:20px;--t:1174ms;--d:-386ms"></i><i style="--x:94%;--y:57%;--s:29px;--t:1311ms;--d:-579ms"></i><i style="--x:79%;--y:81%;--s:35px;--t:1448ms;--d:-772ms"></i><i style="--x:56%;--y:94%;--s:20px;--t:1585ms;--d:-965ms"></i><i style="--x:30%;--y:87%;--s:29px;--t:1022ms;--d:-1158ms"></i><i style="--x:13%;--y:72%;--s:22px;--t:1159ms;--d:-101ms"></i><i style="--x:7%;--y:44%;--s:32px;--t:1296ms;--d:-294ms"></i><i style="--x:23%;--y:17%;--s:22px;--t:1433ms;--d:-487ms"></i><i style="--x:67%;--y:89%;--s:15px;--t:1570ms;--d:-680ms"></i><i style="--x:85%;--y:69%;--s:15px;--t:1007ms;--d:-873ms"></i><i style="--x:12%;--y:56%;--s:16px;--t:1144ms;--d:-1066ms"></i><i style="--x:40%;--y:9%;--s:16px;--t:1281ms;--d:-9ms"></i></span></div>
 <button id="die" class="die" aria-label="触碰中央八芒星，揭示神谕" disabled></button>
 </div><span id="stateLabel" hidden></span><span id="stateIcon" hidden></span><p id="stateMessage" aria-live="polite"></p></section>
 </main><div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="resultTitle" aria-hidden="true" hidden>
