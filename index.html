@@ -22,7 +22,7 @@
 @keyframes align-stars{from{transform:rotate(-65deg)}to{transform:rotate(0)}}
 .chart-title{position:absolute;z-index:1;left:37.5%;top:19.35%;width:24.5%;height:4.55%;display:grid;place-items:center;pointer-events:none;color:#eee0bb;font-family:Georgia,serif;font-size:clamp(14px,4.8cqw,30px);font-weight:400;letter-spacing:.15em;background:url(frame.png) 49.67% 25.2%/408.163% auto;text-shadow:0 0 7px #d8bc74aa}
 .chart{container-type:inline-size}
-</style></head><body><main class="shell">
+</style></head><body><audio id="backgroundMusic" src="music.m4a" autoplay loop preload="auto"></audio><main class="shell">
 <button type="button" id="start"><img src="cover.png" alt="ENOLA 星辰神谕收藏摆件"><span>点击进入</span><small>产品概念示意图</small></button>
 <section id="stage" hidden><div class="chart"><span class="chart-title">ENOLA</span>
 <div id="ring" class="ring" role="slider" tabindex="0" aria-label="拨动星环" aria-valuemin="0" aria-valuemax="359"><div id="orbit"></div></div>
@@ -83,7 +83,11 @@ $('backImage').src=cardBack();
 function reveal(){if(mode!=='ready')return;choose();state('reveal');var c=cards[selected];$('counter').textContent=('0'+(selected+1)).slice(-2)+' / 06';$('cardImage').src=svgCard(c,selected);$('cardImage').alt=c.name+'：ENOLA原创神谕卡';$('roman').textContent=c.roman+' · '+c.en;$('resultTitle').textContent=c.name;$('verse').textContent=c.verse;$('interpretation').textContent=c.text;card.classList.remove('flip');reading.classList.remove('show');overlay.hidden=false;overlay.setAttribute('aria-hidden','false');requestAnimationFrame(function(){overlay.classList.add('show')});later(function(){card.classList.add('flip')},reduce?80:420);later(function(){reading.classList.add('show');again.focus({preventScroll:true})},reduce?280:1400);document.body.style.overflow='hidden'}
 function reset(){clearTimers();overlay.classList.remove('show');document.body.style.overflow='';setTimeout(function(){overlay.hidden=true;overlay.setAttribute('aria-hidden','true');card.classList.remove('flip');reading.classList.remove('show')},300);selected=-1;angle=0;velocity=0;draw();state('idle');ring.focus({preventScroll:true})}
 const start=$('start'), stage=$('stage'), chart=ring.parentElement;
+const music=$('backgroundMusic');
+function playMusic(){if(music.paused)music.play().catch(()=>{})}
+playMusic();
 start.onclick=()=>{
+  playMusic();
   start.hidden=true;
   stage.hidden=false;
   if(reduce){ring.focus({preventScroll:true});return}
