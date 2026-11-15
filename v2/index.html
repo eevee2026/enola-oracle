@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#08090c"><meta name="description" content="ENOLA 神谕圣物 · 命运未定，星辰有言。">
+<title>ENOLA · 神谕圣物</title>
+<link rel="preload" as="image" href="./assets/enola-cover.webp" type="image/webp">
+<link rel="preload" as="video" href="./assets/astrolabe-reference.mp4" type="video/mp4">
+<link rel="stylesheet" href="./styles.css"><script src="./app.js" defer></script></head>
+<body><main class="app" id="app">
+<section class="screen cover is-active" id="coverScreen" aria-label="ENOLA 产品封面">
+<div class="cover-top"><span>COINCOIN STUDIO</span><span>ORACLE OBJECT / 001</span></div>
+<div class="cover-hero"><img src="./assets/enola-cover.webp" alt="ENOLA 红色星帽少女与金色占星仪产品概念图" class="cover-product"></div>
+<div class="cover-copy"><p class="cover-kicker">THE SACRED ORACLE</p><h1>ENOLA</h1><p class="cover-tagline">命运未定，星辰有言。</p><button class="enter-button" id="enterButton" type="button"><span>进入星象</span><i aria-hidden="true"></i></button></div>
+<p class="cover-caption">产品概念示意图 · NFC 互动体验概念</p></section>
+<section class="screen ritual" id="ritualScreen" aria-label="星盘互动体验" aria-hidden="true">
+<header class="ritual-header"><span>ENOLA</span><span class="header-star">✦</span><span>THE ORACLE</span></header>
+<div class="visual-wrap" id="visualWrap">
+<video id="astrolabeVideo" class="astrolabe-video" muted playsinline preload="auto"><source src="./assets/astrolabe-reference.mp4" type="video/mp4"></video>
+<div class="video-vignette" aria-hidden="true"></div>
+<div class="drag-zone" id="dragZone" role="slider" tabindex="0" aria-label="沿星盘中央圆周拨动，以控制星象动画" aria-valuemin="0" aria-valuemax="360" aria-valuenow="0"></div>
+<button class="core-trigger" id="coreTrigger" type="button" aria-label="触碰中央神谕骰子" disabled>
+<svg viewBox="0 0 100 100" aria-hidden="true"><defs>
+<linearGradient id="dieTop" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0c9"/><stop offset="1" stop-color="#c88b4e"/></linearGradient>
+<linearGradient id="dieLeft" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e9bd83"/><stop offset="1" stop-color="#8e4f32"/></linearGradient>
+<linearGradient id="dieRight" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f0d5a6"/><stop offset="1" stop-color="#a96a3c"/></linearGradient>
+<filter id="dieGlow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<g filter="url(#dieGlow)" stroke="#f4d9a8" stroke-width="2" stroke-linejoin="round"><path d="M50 9 85 29 50 49 15 29Z" fill="url(#dieTop)"/><path d="M15 29 50 49 50 91 15 70Z" fill="url(#dieLeft)"/><path d="M85 29 50 49 50 91 85 70Z" fill="url(#dieRight)"/></g>
+<g fill="#5a3529" font-family="Georgia,serif" text-anchor="middle"><text x="50" y="34" font-size="16">✦</text><text x="32" y="65" font-size="18">☾</text><text x="67" y="67" font-size="17">✧</text></g></svg></button></div>
+<div class="ritual-status" id="ritualStatus" aria-live="polite"><span class="status-symbol" id="statusSymbol">✧</span><div class="status-copy"><p class="status-eyebrow" id="statusEyebrow">THE ORACLE IS ALIGNING</p><p class="status-message" id="statusMessage">星轨正在对齐</p></div><span class="status-index" id="statusIndex">01 <i>/ 03</i></span></div>
+<p class="gesture-hint" id="gestureHint">沿星盘中央圆周拨动　·　让星轨回应指尖</p><p class="fine-print">视觉动效取自原始参考视频 · 网页交互演示</p></section></main>
+<div class="result-overlay" id="resultOverlay" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="resultTitle">
+<div class="result-inner"><div class="result-header"><span>ENOLA · ORACLE READING</span><span id="resultCounter">01 / 06</span></div><p class="result-kicker">星辰已为你留下讯息</p>
+<div class="card-stage"><div class="flip-card" id="flipCard"><div class="card-face card-back"><img id="cardBackImage" alt="神谕卡背面"></div><div class="card-face card-front"><img id="cardImage" alt="神谕卡正面"></div></div></div>
+<section class="reading" id="reading"><p class="reading-index" id="readingIndex"></p><h2 id="resultTitle">星启</h2><p class="reading-verse" id="readingVerse"></p><div class="reading-ornament" aria-hidden="true">✦</div><p class="reading-copy" id="readingCopy"></p><button class="again-button" id="againButton" type="button">再次占星</button></section>
+<p class="result-disclaimer">每张神谕是一份灵感与温柔提醒，并非对未来的事实预测。</p></div></div></body></html>
