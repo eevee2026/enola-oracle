@@ -22,6 +22,10 @@
 @keyframes align-stars{from{transform:rotate(-65deg)}to{transform:rotate(0)}}
 .chart-title{position:absolute;z-index:1;left:37.5%;top:19.35%;width:24.5%;height:4.55%;display:grid;place-items:center;pointer-events:none;color:#eee0bb;font-family:Georgia,serif;font-size:clamp(14px,4.8cqw,30px);font-weight:400;letter-spacing:.15em;background:url(frame.png) 49.67% 25.2%/408.163% auto;text-shadow:0 0 7px #d8bc74aa}
 .chart{container-type:inline-size}
+
+.chart .ring:focus,.chart .die:focus{outline:2px solid #f6ce81;outline-offset:3px;box-shadow:0 0 9px #f6ce81,0 0 24px #e8ac5566}
+.chart .ring:focus:not(:focus-visible){outline:0;box-shadow:none}
+.chart:has(.ring:active) .ring{outline:2px solid #f6ce81;outline-offset:3px;box-shadow:0 0 9px #f6ce81,0 0 24px #e8ac5566}
 </style></head><body><audio id="backgroundMusic" src="music.m4a" autoplay loop preload="auto"></audio><main class="shell">
 <button type="button" id="start"><img src="cover.png" alt="ENOLA 星辰神谕收藏摆件"><span>点击进入</span><small>产品概念示意图</small></button>
 <section id="stage" hidden><div class="chart"><span class="chart-title">ENOLA</span>
@@ -52,13 +56,37 @@ var mode='idle',angle=0,velocity=0,lastA=0,lastT=0,total=0,pointer=null,selected
 
 function state(m){mode=m;die.disabled=m!=='ready';var map={idle:['STEP 01 / TURN THE ORBIT','用指尖拨动金色星环','✧','01'],drag:['STEP 01 / TURN THE ORBIT','星轨正在回应你的指尖','☽','01'],spin:['STEP 02 / THE ORBIT IS TURNING','等待星辰停稳…','✺','02'],ready:['STEP 02 / TOUCH THE RUNE','轻触中央八芒星','✦','02']};if(map[m]){$('stateLabel').textContent=map[m][0];$('stateMessage').textContent=map[m][1];$('stateIcon').textContent=map[m][2];}}
 function delta(v){return((v+180)%360+360)%360-180}
-function draw(){orbit.style.rotate=angle+'deg';ring.setAttribute('aria-valuenow',String((Math.round(angle)%360+360)%360))}
+let soundContext, lastTick=0, tickAngle=0;
+function unlockTurnSound(){
+  const Audio = window.AudioContext || window.webkitAudioContext;
+  if(!Audio)return;
+  if(!soundContext)soundContext=new Audio();
+  if(soundContext.state==='suspended')soundContext.resume().catch(()=>{});
+}
+function turnSound(){
+  if(!soundContext || soundContext.state!=='running' || !['drag','spin'].includes(mode))return;
+  const now=soundContext.currentTime;
+  if(now-lastTick<.09 || Math.abs(angle-tickAngle)<11)return;
+  lastTick=now;
+  tickAngle=angle;
+  const tone=soundContext.createOscillator(), gain=soundContext.createGain();
+  tone.type='sine';
+  tone.frequency.setValueAtTime(870,now);
+  tone.frequency.exponentialRampToValueAtTime(595,now+.065);
+  gain.gain.setValueAtTime(.0001,now);
+  gain.gain.exponentialRampToValueAtTime(.055,now+.008);
+  gain.gain.exponentialRampToValueAtTime(.0001,now+.11);
+  tone.connect(gain).connect(soundContext.destination);
+  tone.start(now);
+  tone.stop(now+.12);
+}
+function draw(){turnSound();orbit.style.rotate=angle+'deg';ring.setAttribute('aria-valuenow',String((Math.round(angle)%360+360)%360))}
 function point(e){var b=ring.getBoundingClientRect();return Math.atan2(e.clientY-b.top-b.height/2,e.clientX-b.left-b.width/2)*180/Math.PI}
 function stop(){cancelAnimationFrame(raf);raf=0;rafT=0}
 function choose(){var a=new Uint32Array(1);if(window.crypto&&crypto.getRandomValues)crypto.getRandomValues(a);else a[0]=Math.floor(Math.random()*4294967296);selected=a[0]%6}
 function ready(){stop();state('ready')}
 function frame(t){if(mode!=='spin')return;var dt=rafT?Math.min(45,t-rafT):16;rafT=t;angle+=velocity*dt;velocity*=Math.pow(.925,dt/16);draw();if(Math.abs(velocity)<.013){ready();return}raf=requestAnimationFrame(frame)}
-ring.addEventListener('pointerdown',function(e){if(mode!=='idle'&&mode!=='ready')return;if(e.button!==undefined&&e.button!==0)return;var b=ring.getBoundingClientRect(),r=Math.hypot(e.clientX-b.left-b.width/2,e.clientY-b.top-b.height/2)/b.width;if(r<.22||r>.50)return;e.preventDefault();stop();pointer=e.pointerId;ring.setPointerCapture(e.pointerId);lastA=point(e);lastT=performance.now();total=0;velocity=0;state('drag')});
+ring.addEventListener('pointerdown',function(e){if(mode!=='idle'&&mode!=='ready')return;if(e.button!==undefined&&e.button!==0)return;var b=ring.getBoundingClientRect(),r=Math.hypot(e.clientX-b.left-b.width/2,e.clientY-b.top-b.height/2)/b.width;if(r<.22||r>.50)return;e.preventDefault();unlockTurnSound();tickAngle=angle;stop();pointer=e.pointerId;ring.setPointerCapture(e.pointerId);lastA=point(e);lastT=performance.now();total=0;velocity=0;state('drag')});
 ring.addEventListener('pointermove',function(e){if(mode!=='drag'||e.pointerId!==pointer)return;e.preventDefault();var a=point(e),t=performance.now(),dt=Math.max(1,t-lastT),d=delta(a-lastA);if(Math.abs(d)<90){angle+=d;total+=Math.abs(d);velocity=velocity*.45+(d/dt)*.55;draw()}lastA=a;lastT=t});
 ring.addEventListener('pointerup',function(e){if(mode!=='drag'||e.pointerId!==pointer)return;try{ring.releasePointerCapture(e.pointerId)}catch(_){}pointer=null;if(total<9){state('idle');return}velocity=Math.sign(velocity||1)*Math.max(reduce?.12:.22,Math.min(Math.abs(velocity),1.15));state('spin');raf=requestAnimationFrame(frame)});
 ring.addEventListener('pointercancel',function(){pointer=null;stop();state('idle')});
