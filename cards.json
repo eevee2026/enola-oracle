@@ -1,0 +1,152 @@
+[
+  {
+    "roman": "I",
+    "name": "星启",
+    "en": "THE AWAKENING",
+    "verse": "微光已至，旅程将启。",
+    "text": "有些新的开始，不需要等待万事俱备。今天可以试着迈出很小的一步，让行动带你看见下一段路。",
+    "symbol": "star",
+    "image": "cards/I.webp"
+  },
+  {
+    "roman": "II",
+    "name": "月隐",
+    "en": "THE VEIL",
+    "verse": "看不清的，也不必急于看清。",
+    "text": "此刻尚未明朗的事情，不一定需要立刻得到答案。给自己一些观察和等待的空间。",
+    "symbol": "moon",
+    "image": "cards/II.webp"
+  },
+  {
+    "roman": "III",
+    "name": "回响",
+    "en": "THE ECHO",
+    "verse": "真诚的声音，终会留下回响。",
+    "text": "有些心意需要被表达，而不是一直等待对方猜测。试着说出你真正关心的事情。",
+    "symbol": "echo",
+    "image": "cards/III.webp"
+  },
+  {
+    "roman": "IV",
+    "name": "逆行",
+    "en": "THE RETREAT",
+    "verse": "停顿，也是一种前进。",
+    "text": "如果事情没有按预期发展，不妨重新检查方向。暂时放慢速度，也可以是一种有意识的选择。",
+    "symbol": "pause",
+    "image": "cards/IV.webp"
+  },
+  {
+    "roman": "V",
+    "name": "转轨",
+    "en": "THE TURNING",
+    "verse": "当轨道改变，新的星空便会出现。",
+    "text": "变化不一定意味着失去控制。你可以从眼前的选择开始，寻找更适合自己的节奏。",
+    "symbol": "orbit",
+    "image": "cards/V.webp"
+  },
+  {
+    "roman": "VI",
+    "name": "归航",
+    "en": "THE HOMECOMING",
+    "verse": "星辰依旧，允许自己暂时停靠。",
+    "text": "不必一直向前证明什么。留一点时间照顾自己的感受，恢复能量之后再决定下一步。",
+    "symbol": "home",
+    "image": "cards/VI.webp"
+  },
+  {
+    "roman": "VII",
+    "name": "星种",
+    "en": "THE SEED",
+    "verse": "星光埋入黑夜，终会生根。",
+    "text": "不必急于看见成果。选择一件值得长期投入的小事，从今天开始认真培育。",
+    "image": "cards/VII.webp"
+  },
+  {
+    "roman": "VIII",
+    "name": "潮汐",
+    "en": "THE TIDE",
+    "verse": "潮水有期，万物有时。",
+    "text": "当精力与情绪发生起伏，试着调整自己的节奏。不必要求每天都有同样的表现。",
+    "image": "cards/VIII.webp"
+  },
+  {
+    "roman": "IX",
+    "name": "守望",
+    "en": "THE GUARDIAN",
+    "verse": "总有一束光，为你守候。",
+    "text": "想想那些一直支持你的人，也允许自己主动寻求帮助。你不必独自承担所有事情。",
+    "image": "cards/IX.webp"
+  },
+  {
+    "roman": "X",
+    "name": "迷途",
+    "en": "THE WANDERER",
+    "verse": "失去方向时，星空依然辽阔。",
+    "text": "暂时不知道下一步怎么走，可以先排除不适合自己的方向。探索本身也有意义。",
+    "image": "cards/X.webp"
+  },
+  {
+    "roman": "XI",
+    "name": "破茧",
+    "en": "THE EMERGENCE",
+    "verse": "裂缝之处，新生悄然发生。",
+    "text": "改变可能伴随不适。试着放下一个已经不适合你的旧习惯，为新的可能腾出空间。",
+    "image": "cards/XI.webp"
+  },
+  {
+    "roman": "XII",
+    "name": "盟约",
+    "en": "THE BOND",
+    "verse": "两颗星辰，相望而不相困。",
+    "text": "重要的关系需要理解，也需要边界。试着坦诚表达期待，同时尊重彼此的独立。",
+    "image": "cards/XII.webp"
+  },
+  {
+    "roman": "XIII",
+    "name": "余烬",
+    "en": "THE EMBER",
+    "verse": "灰烬深处，仍藏着未熄的光。",
+    "text": "如果最近经历挫折，不必急着重新振作。先找回一件还能带给你力量的小事。",
+    "image": "cards/XIII.webp"
+  },
+  {
+    "roman": "XIV",
+    "name": "镜湖",
+    "en": "THE MIRROR",
+    "verse": "水面映照的，不止星辰。",
+    "text": "遇到令你强烈在意的事情时，先分清事实与自己的感受，再决定如何回应。",
+    "image": "cards/XIV.webp"
+  },
+  {
+    "roman": "XV",
+    "name": "织梦",
+    "en": "THE WEAVER",
+    "verse": "命运的丝线，也握在你手中。",
+    "text": "让想法逐渐成为现实，需要持续的小行动。今天可以完成其中最简单的一步。",
+    "image": "cards/XV.webp"
+  },
+  {
+    "roman": "XVI",
+    "name": "边界",
+    "en": "THE THRESHOLD",
+    "verse": "每一扇门，都有自己的开启时刻。",
+    "text": "面对新的机会，先确认自己的意愿和承受能力。说“不”有时也是保护重要选择的方式。",
+    "image": "cards/XVI.webp"
+  },
+  {
+    "roman": "XVII",
+    "name": "降临",
+    "en": "THE ARRIVAL",
+    "verse": "当星辰落下，答案开始有了形状。",
+    "text": "留意眼前已经发生的变化，而不只是等待理想中的结果。机会可能需要你主动回应。",
+    "image": "cards/XVII.webp"
+  },
+  {
+    "roman": "XVIII",
+    "name": "长明",
+    "en": "THE EVERLIGHT",
+    "verse": "星光不必耀眼，也能照亮长夜。",
+    "text": "找到让你保持稳定的小习惯，认真照顾自己的生活。持久的力量往往来自日常积累。",
+    "image": "cards/XVIII.webp"
+  }
+]
